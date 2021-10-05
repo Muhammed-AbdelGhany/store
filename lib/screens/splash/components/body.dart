@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/networking/dio_client.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
 
@@ -13,6 +14,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final DioClient _client = DioClient();
+  fetshdata() async {
+    await _client.getItems();
+  }
+
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
@@ -70,6 +76,7 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
+                        fetshdata();
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),
